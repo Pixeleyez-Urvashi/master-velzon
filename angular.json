@@ -45,7 +45,7 @@
               "src/assets/scss/icons.scss",
               "src/assets/scss/app.scss"
             ],
-            "scripts":[
+            "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/slick-carousel/slick/slick.min.js"
             ],
@@ -81,7 +81,7 @@
               "dropzone",
               "file-saver",
               "prismjs"
-           ]
+            ]
           },
           "configurations": {
             "production": {
@@ -107,10 +107,10 @@
               "optimization": {
                 "scripts": true,
                 "styles": {
-                    "minify": true,
-                    "inlineCritical": false
+                  "minify": true,
+                  "inlineCritical": false
                 }
-            }
+              }
             },
             "development": {
               "buildOptimizer": false,

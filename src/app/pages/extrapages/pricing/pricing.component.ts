@@ -1,8 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-
-import { MonthlyPlanModel, YearlyPlanModel, PricingModel, SimpleModel } from './pricing.model';
-import { MonthlyPlan, SimplePlan, YearlyPlan, pricingPlan } from 'src/app/core/data';
-
+import { Component } from '@angular/core';
 @Component({
   selector: 'app-pricing',
   templateUrl: './pricing.component.html',
@@ -12,36 +8,20 @@ import { MonthlyPlan, SimplePlan, YearlyPlan, pricingPlan } from 'src/app/core/d
 /**
  * Pricing Component
  */
-export class PricingComponent implements OnInit {
+export class PricingComponent {
 
   // bread crumb items
   breadCrumbItems!: Array<{}>;
-  MonthlyPlan!: MonthlyPlanModel[];
-  YearlyPlan!: YearlyPlanModel[];
-  pricingPlan!: PricingModel[];
-  SimplePlan!: SimpleModel[];
 
   constructor() { }
 
   ngOnInit(): void {
-     /**
-    * BreadCrumb
-    */
-      this.breadCrumbItems = [
-        { label: 'Pages' },
-        { label: 'Pricing', active: true }
-      ];
-
-    // Chat Data Get Function
-    this._fetchData();
+    /**
+   * BreadCrumb
+   */
+    this.breadCrumbItems = [
+      { label: 'Pages' },
+      { label: 'Pricing', active: true }
+    ];
   }
-
-  // Chat Data Fetch
-  private _fetchData() {
-    this.MonthlyPlan = MonthlyPlan;
-    this.YearlyPlan = YearlyPlan;
-    this.pricingPlan = pricingPlan;
-    this.SimplePlan = SimplePlan;
-  }
-
 }

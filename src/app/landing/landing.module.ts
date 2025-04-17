@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IndexComponent } from './index/index.component';
 
 import {
   NgbCarouselModule, NgbTooltipModule, NgbCollapseModule
@@ -10,14 +9,11 @@ import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 
 import { LandingRoutingModule } from "./landing-routing.module";
 import { SharedModule } from '../shared/shared.module';
-import { NftComponent } from './nft/nft.component';
-import { JobComponent } from './job/job.component';
+import { CollegeSportsComponent } from './college-sports/college-sports.component';
 
 @NgModule({
   declarations: [
-    IndexComponent,
-    NftComponent,
-    JobComponent,
+    CollegeSportsComponent,
   ],
   imports: [
     CommonModule,

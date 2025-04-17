@@ -2,23 +2,13 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 // Component Pages
-import { IndexComponent } from "./index/index.component";
-import { NftComponent } from "./nft/nft.component";
-import { JobComponent } from './job/job.component';
+import { CollegeSportsComponent } from './college-sports/college-sports.component';
 
 const routes: Routes = [
   {
-    path: "",
-    component: IndexComponent
+    path: "college-sports",
+    component: CollegeSportsComponent
   },
-  {
-    path: "nft",
-    component: NftComponent
-  },
-  {
-    path: "job",
-    component: JobComponent
-  }
 ];
 
 @NgModule({

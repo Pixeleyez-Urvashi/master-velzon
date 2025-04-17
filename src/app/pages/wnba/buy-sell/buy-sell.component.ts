@@ -1,56 +1,93 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { BitcoinChart, cryptoBinanceChart, cryptoBitcoinChart, cryptoCurrencies, cryptoDashChart, cryptoEatherreumChart, cryptoNeoChart, cryptoNewsFeed, cryptoTetherChart, cryptoTopPerformers, cryptolitecoinChart, cryptostatData, litecoinChart, statData } from 'src/app/core/data';
-import { Portfolio, marketChart, revenueChart } from 'src/app/shared/chartColor';
-
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Market } from 'src/app/core/data';
+import { PaginationService } from 'src/app/core/services/pagination.service';
+import { marketChart } from 'src/app/shared/chartColor';
+import { MarketModel } from 'src/app/store/Crypto/crypto_model';
 
 @Component({
-  selector: 'app-wnba',
-  templateUrl: './wnba.component.html',
-  styleUrls: ['./wnba.component.scss']
+  selector: 'app-buy-sell',
+  templateUrl: './buy-sell.component.html',
+  styleUrls: ['./buy-sell.component.scss'],
 })
 
 /**
- * wnba Component 
+ * BuySell Component
  */
-export class WnbaComponent implements OnInit {
+export class BuySellComponent implements OnInit, OnDestroy {
 
   // bread crumb items
-  breadCrumbItems!: Array<{}>;
-  statData!: any;
-  portfolioChart: any;
+  breadCrumbItems: Array<{ label: string, active?: boolean }> = [];
   marketGraphChart: any;
-  BitcoinChart: any;
-  litecoinChart: any;
-  EatherreumChart: any;
-  BinanceChart: any;
-  DashChart: any;
-  TetherChart: any;
-  NeoChart: any;
-  Currencies: any;
-  TopPerformers: any;
-  NewsFeed: any;
-  selectedCurrency: string = 'BTC';
+  searchTerm: string = '';
 
-  constructor() {
-  }
+  // Table data
+  buysellList: MarketModel[] = [];
+  searchResults: MarketModel[] = [];
+
+  // Counter options
+  num: number = 0;
+  option = {
+    startVal: this.num,
+    useEasing: true,
+    duration: 2,
+    decimalPlaces: 2,
+  };
+
+  // Theme observer
+  private themeObserver!: MutationObserver;
+
+  constructor(public service: PaginationService) { }
 
   ngOnInit(): void {
     /**
-     * BreadCrumb
-     */
+    * BreadCrumb
+    */
     this.breadCrumbItems = [
-      { label: 'Dashboards' },
-      { label: 'WNBA', active: true }
+      { label: 'Crypto' },
+      { label: 'Buy & Sell', active: true }
     ];
 
-    /**
-     * Fetches the data
-     */
-    this.fetchData();
+    // Initialize data
+    this.initializeData();
 
     // Chart Color Data Get Function
-    this._portfolioChart('["--vz-primary", "--vz-info", "--vz-warning", "--vz-success"]');
     this._marketGraphChart('["--vz-success", "--vz-danger"]');
+
+    // Setup theme observer
+    this.setupThemeObserver();
+  }
+
+  ngOnDestroy(): void {
+    // Disconnect observer when component is destroyed
+    if (this.themeObserver) {
+      this.themeObserver.disconnect();
+    }
+  }
+
+  /**
+   * Initialize component data
+   */
+  private initializeData(): void {
+    // fetch Data
+    this.buysellList = Market;
+    this.buysellList = this.service.changePage(Market);
+  }
+
+  /**
+   * Setup theme observer for chart color updates
+   */
+  private setupThemeObserver(): void {
+    const attributeToMonitor = 'data-theme';
+
+    this.themeObserver = new MutationObserver(() => {
+      const currentTheme = document.documentElement.getAttribute(attributeToMonitor);
+      this.marketGraphChart(marketChart(currentTheme));
+    });
+
+    this.themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: [attributeToMonitor]
+    });
   }
 
   // Chart Colors Set
@@ -78,100 +115,9 @@ export class WnbaComponent implements OnInit {
     });
   }
 
-  getSelectedDropdown(value: any) {
-    this.selectedCurrency = value;
-    if (value == 'BTC') {
-      this.portfolioChart.series = [19405, 40552, 15824, 30635]
-    }
-    if (value == 'USD') {
-      this.portfolioChart.series = [9405, 20552, 5824, 20635]
-    }
-    if (value == 'Euro') {
-      this.portfolioChart.series = [29405, 50552, 25824, 40635]
-    }
-  }
-
   /**
- * My Portfolio Chart
- */
-  private _portfolioChart(colors: any) {
-    colors = this.getChartColorsArray(colors);
-    this.portfolioChart = {
-      series: [19405, 40552, 15824, 30635],
-      labels: ["Bitcoin", "Ethereum", "Litecoin", "Dash"],
-      chart: {
-        type: "donut",
-        height: 220,
-      },
-      plotOptions: {
-        pie: {
-          offsetX: 0,
-          offsetY: 0,
-          donut: {
-            size: "70%",
-            labels: {
-              show: true,
-              name: {
-                show: true,
-                fontSize: '18px',
-                offsetY: -5,
-              },
-              value: {
-                show: true,
-                fontSize: '20px',
-                color: '#343a40',
-                fontWeight: 500,
-                offsetY: 5,
-                formatter: function (val: any) {
-                  return "$" + val
-                }
-              },
-              total: {
-                show: true,
-                fontSize: '13px',
-                label: 'Total value',
-                color: '#9599ad',
-                fontWeight: 500,
-              }
-            }
-          },
-        },
-      },
-      dataLabels: {
-        enabled: false,
-      },
-      legend: {
-        show: false,
-      },
-      yaxis: {
-        labels: {
-          formatter: function (value: any) {
-            return "$" + value;
-          }
-        }
-      },
-      stroke: {
-        lineCap: "round",
-        width: 2
-      },
-      colors: colors
-    };
-    const attributeToMonitor = 'data-theme';
-
-    const observer = new MutationObserver(() => {
-      const currentTheme = document.documentElement.getAttribute(attributeToMonitor);
-      this._portfolioChart(Portfolio(currentTheme));
-    });
-
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: [attributeToMonitor]
-    });
-  }
-
-  /**
- * Market Graph Chart
- */
+   * Market Graph Chart - Preserved as requested
+   */
   private _marketGraphChart(colors: any) {
     colors = this.getChartColorsArray(colors);
     this.marketGraphChart = {
@@ -449,73 +395,36 @@ export class WnbaComponent implements OnInit {
         }
       }
     };
-
-    const attributeToMonitor = 'data-theme';
-
-    const observer = new MutationObserver(() => {
-      const currentTheme = document.documentElement.getAttribute(attributeToMonitor);
-      this._marketGraphChart(marketChart(currentTheme));
-    });
-
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: [attributeToMonitor]
-    });
   }
 
   /**
-   * Fetches the data
+   * Pagination - Change page
    */
-  private fetchData() {
-    this.statData = cryptostatData;
-    this.BitcoinChart = cryptoBitcoinChart;
-    this.litecoinChart = cryptolitecoinChart;
-    this.EatherreumChart = cryptoEatherreumChart;
-    this.BinanceChart = cryptoBinanceChart;
-    this.DashChart = cryptoDashChart;
-    this.TetherChart = cryptoTetherChart;
-    this.NeoChart = cryptoNeoChart;
-    this.Currencies = cryptoCurrencies;
-    this.TopPerformers = cryptoTopPerformers;
-    this.NewsFeed = cryptoNewsFeed;
+  changePage(): void {
+    this.buysellList = this.service.changePage(Market);
   }
 
   /**
-   * Swiper setting
+   * Sorting - Sort by column
+   * @param column Column to sort by
    */
-  config = {
-    infinite: true,
-    slidesToShow: 5,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 3000,
-    arrows: false,
-    responsive: [
-      {
-        breakpoint: 1200,
-        settings: {
-          slidesToShow: 4,
-        }
-      },
-      {
-        breakpoint: 992,
-        settings: {
-          slidesToShow: 3,
-        }
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 2,
-        }
-      }
-    ]
-  };
+  onSort(column: string): void {
+    this.buysellList = this.service.onSort(column, this.buysellList);
+  }
 
   /**
-   * Refresh data
+   * Search - Filter results by search term
    */
-  refreshData() {
-    this.fetchData();
+  performSearch(): void {
+    if (!this.searchTerm.trim()) {
+      this.buysellList = this.service.changePage(Market);
+      return;
+    }
+
+    this.searchResults = Market.filter((item: MarketModel) => {
+      return item.coinName.toLowerCase().includes(this.searchTerm.toLowerCase());
+    });
+
+    this.buysellList = this.service.changePage(this.searchResults);
   }
 }

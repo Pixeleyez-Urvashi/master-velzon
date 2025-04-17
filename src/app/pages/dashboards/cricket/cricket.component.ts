@@ -2,8 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActiveProjects, MyTask, TeamMembers, projectstatData } from 'src/app/core/data';
 import { OverviewChart, status7 } from 'src/app/shared/chartColor';
 
-
-
 @Component({
   selector: 'app-cricket',
   templateUrl: './cricket.component.html',
@@ -25,7 +23,16 @@ export class CricketComponent implements OnInit {
   status7: any;
   @ViewChild('scrollRef') scrollRef: any;
 
+  // Add proper typing for improved code quality
+  option = {
+    startVal: 0,
+    useEasing: true,
+    duration: 2,
+    decimalPlaces: 2,
+  };
+
   constructor() {
+    // Initialize properties here if needed
   }
 
   ngOnInit(): void {
@@ -46,19 +53,33 @@ export class CricketComponent implements OnInit {
     this._OverviewChart('["--vz-primary", "--vz-warning", "--vz-success"]');
     this._status7('["--vz-success", "--vz-primary", "--vz-warning", "--vz-danger"]');
 
+    // Set up theme observer
+    this.setupThemeObservers();
   }
 
   ngAfterViewInit() {
-    this.scrollRef.SimpleBar.getScrollElement().scrollTop = 600;
+    if (this.scrollRef?.SimpleBar) {
+      this.scrollRef.SimpleBar.getScrollElement().scrollTop = 600;
+    }
   }
 
-  num: number = 0;
-  option = {
-    startVal: this.num,
-    useEasing: true,
-    duration: 2,
-    decimalPlaces: 2,
-  };
+  /**
+   * Set up observers for theme changes
+   */
+  private setupThemeObservers() {
+    const attributeToMonitor = 'data-theme';
+
+    const observer = new MutationObserver(() => {
+      const currentTheme = document.documentElement.getAttribute(attributeToMonitor);
+      this._OverviewChart(OverviewChart(currentTheme));
+      this._status7(status7(currentTheme));
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: [attributeToMonitor]
+    });
+  }
 
   // Chart Colors Set
   private getChartColorsArray(colors: any) {
@@ -71,7 +92,7 @@ export class CricketComponent implements OnInit {
           color = color.replace(" ", "");
           return color;
         }
-        else return newValue;;
+        else return newValue;
       } else {
         var val = value.split(',');
         if (val.length == 2) {
@@ -86,9 +107,8 @@ export class CricketComponent implements OnInit {
   }
 
   /**
- * Projects Overview
- */
-
+   * Projects Overview
+   */
   setprojectvalue(value: any) {
     if (value == 'all') {
       this.OverviewChart.series = [{
@@ -248,7 +268,6 @@ export class CricketComponent implements OnInit {
               return y.toFixed(0);
             }
             return y;
-
           }
         }, {
           formatter: function (y: any) {
@@ -256,7 +275,6 @@ export class CricketComponent implements OnInit {
               return "$" + y.toFixed(2) + "k";
             }
             return y;
-
           }
         }, {
           formatter: function (y: any) {
@@ -264,39 +282,27 @@ export class CricketComponent implements OnInit {
               return y.toFixed(0);
             }
             return y;
-
           }
         }]
       }
     };
-    const attributeToMonitor = 'data-theme';
-
-    const observer = new MutationObserver(() => {
-      const currentTheme = document.documentElement.getAttribute(attributeToMonitor);
-      this._OverviewChart(OverviewChart(currentTheme));
-    });
-
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: [attributeToMonitor]
-    });
   }
 
   /**
- *  Status7
- */
+   * Status7 chart value setter
+   */
   setstatusvalue(value: any) {
     if (value == 'all') {
-      this.status7.series = [125, 42, 58, 89]
+      this.status7.series = [125, 42, 58, 89];
     }
     if (value == '7') {
-      this.status7.series = [25, 52, 158, 99]
+      this.status7.series = [25, 52, 158, 99];
     }
     if (value == '30') {
-      this.status7.series = [35, 22, 98, 99]
+      this.status7.series = [35, 22, 98, 99];
     }
     if (value == '90') {
-      this.status7.series = [105, 32, 68, 79]
+      this.status7.series = [105, 32, 68, 79];
     }
   }
 
@@ -333,17 +339,6 @@ export class CricketComponent implements OnInit {
       },
       colors: colors
     };
-    const attributeToMonitor = 'data-theme';
-
-    const observer = new MutationObserver(() => {
-      const currentTheme = document.documentElement.getAttribute(attributeToMonitor);
-      this._status7(status7(currentTheme));
-    });
-
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: [attributeToMonitor]
-    });
   }
 
   /**
@@ -355,5 +350,4 @@ export class CricketComponent implements OnInit {
     this.MyTask = MyTask;
     this.TeamMembers = TeamMembers;
   }
-
 }

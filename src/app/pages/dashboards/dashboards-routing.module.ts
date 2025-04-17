@@ -21,7 +21,7 @@ const routes: Routes = [
     component: NbaComponent
   },
   {
-    path: "nwba",
+    path: "wnba",
     component: WnbaComponent
   },
   {

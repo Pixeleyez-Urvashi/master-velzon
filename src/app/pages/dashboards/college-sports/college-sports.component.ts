@@ -14,7 +14,7 @@ import { marketplaceChart, popularityChart } from 'src/app/shared/chartColor';
 })
 
 /**
- * college-sports Component
+ * College Sports Component
  */
 export class CollegeSportsComponent implements OnInit {
 
@@ -46,6 +46,78 @@ export class CollegeSportsComponent implements OnInit {
     _minutes?: number;
     _seconds?: number;
 
+    option = {
+        startVal: 0,
+        useEasing: true,
+        duration: 2,
+        decimalPlaces: 2,
+    };
+
+    // Responsive settings for sliders
+    public Responsive = {
+        infinite: true,
+        slidesToShow: 3,
+        autoplay: true,
+        dots: false,
+        arrows: true,
+        responsive: [
+            {
+                breakpoint: 1200,
+                settings: {
+                    slidesToShow: 2,
+                }
+            },
+            {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 1,
+                }
+            }
+        ]
+    };
+
+    // Collection slider settings
+    public collection = {
+        infinite: true,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: true,
+        arrows: false,
+        dots: true,
+        autoplaySpeed: 3000
+    };
+
+    // Map options
+    options = {
+        layers: [
+            tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoidGhlbWVzYnJhbmQiLCJhIjoiY2xmbmc3bTV4MGw1ejNzbnJqOWpubzhnciJ9.DNkdZVKLnQ6I9NOz7EED-w", {
+                id: "mapbox/light-v9",
+                tileSize: 512,
+                zoomOffset: 0,
+                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            })
+        ],
+        zoom: 1.1,
+        center: latLng(28, 1.5)
+    };
+
+    layers = [
+        circle([41.9, 12.45], { color: "#435fe3", opacity: 0.5, weight: 10, fillColor: "#435fe3", fillOpacity: 1, radius: 400000, }),
+        circle([12.05, -61.75], { color: "#435fe3", opacity: 0.5, weight: 10, fillColor: "#435fe3", fillOpacity: 1, radius: 400000, }),
+        circle([1.3, 103.8], { color: "#435fe3", opacity: 0.5, weight: 10, fillColor: "#435fe3", fillOpacity: 1, radius: 400000, }),
+        circle([26.8, 80.9], { color: "#435fe3", opacity: 0.5, weight: 10, fillColor: "#435fe3", fillOpacity: 1, radius: 400000, }),
+    ];
+
+    // Counter animation options
+    counterOptions = {
+        startVal: 0,
+        useEasing: true,
+        duration: 2,
+        decimalPlaces: 2,
+    };
+
+    loading: boolean = true;
+
     constructor() {
     }
 
@@ -58,17 +130,21 @@ export class CollegeSportsComponent implements OnInit {
             { label: 'College Sports', active: true }
         ];
 
-        /**
-        * Fetches the data
-        */
-        this.fetchData();
+        // Simulate loading data
+        setTimeout(() => {
+            this.loading = false;
+            /**
+            * Fetches the data
+            */
+            this.fetchData();
+        }, 800);
 
         this._marketplaceChart('["--vz-primary","--vz-success", "--vz-light"]');
         this._popularityChart('["--vz-success", "--vz-warning"]');
         this._minichart1Chart('["--vz-danger"]');
         this._minichartsuccessChart('["--vz-success"]');
 
-        // Date Set
+        // Date Set for countdown
         const currentDate = new Date();
         currentDate.setDate(currentDate.getDate() + 1);
         this._trialEndsAt = currentDate.toISOString().split('T')[0];
@@ -84,68 +160,6 @@ export class CollegeSportsComponent implements OnInit {
             this._minutes = this.getMinutes(this._diff);
             this._seconds = this.getSeconds(this._diff);
         });
-
-    }
-
-    num: number = 0;
-    option = {
-        startVal: this.num,
-        useEasing: true,
-        duration: 2,
-        decimalPlaces: 2,
-    };
-
-    /**
-     * Day Set
-     */
-    getDays(t: number) {
-        return Math.floor(t / (1000 * 60 * 60 * 24));
-    }
-
-    /**
-     * Hours Set
-     */
-    getHours(t: number) {
-        return Math.floor((t / (1000 * 60 * 60)) % 24);
-    }
-
-    /**
-     * Minutes set
-     */
-    getMinutes(t: number) {
-        return Math.floor((t / 1000 / 60) % 60);
-    }
-
-    /**
-     * Secound set
-     */
-    getSeconds(t: number) {
-        return Math.floor((t / 1000) % 60);
-    }
-
-    // Chart Colors Set
-    private getChartColorsArray(colors: any) {
-        colors = JSON.parse(colors);
-        return colors.map(function (value: any) {
-            var newValue = value.replace(" ", "");
-            if (newValue.indexOf(",") === -1) {
-                var color = getComputedStyle(document.documentElement).getPropertyValue(newValue);
-                if (color) {
-                    color = color.replace(" ", "");
-                    return color;
-                }
-                else return newValue;;
-            } else {
-                var val = value.split(',');
-                if (val.length == 2) {
-                    var rgbaColor = getComputedStyle(document.documentElement).getPropertyValue(val[0]);
-                    rgbaColor = "rgba(" + rgbaColor + "," + val[1] + ")";
-                    return rgbaColor;
-                } else {
-                    return newValue;
-                }
-            }
-        });
     }
 
     /**
@@ -160,31 +174,10 @@ export class CollegeSportsComponent implements OnInit {
     }
 
     /**
-     * Swiper Responsive setting
+     * Filter marketplace data by timeframe
+     * @param value Timeframe value (all, 1M, 6M, 1Y)
      */
-    public Responsive = {
-        infinite: true,
-        slidesToShow: 3,
-        autoplay: true,
-        dots: false,
-        arrows: true,
-    };
-
-    /**
-     * Top CollectionSwiper Responsive setting
-     */
-    public collection = {
-        infinite: true,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplay: true,
-        arrows: false
-    };
-
-    /**
-    * Market Place Chart
-    */
-    setmarketplacevalue(value: any) {
+    setmarketplacevalue(value: string) {
         if (value == 'all') {
             this.MarketplaceChart.series = [{
                 name: "Artwork",
@@ -243,6 +236,88 @@ export class CollegeSportsComponent implements OnInit {
         }
     }
 
+    /**
+     * Export chart data as CSV
+     */
+    exportChartData() {
+        const header = 'Month,Artwork,Auction,Creators\n';
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'];
+        let csvContent = header;
+
+        for (let i = 0; i < months.length; i++) {
+            const artwork = this.MarketplaceChart.series[0].data[i];
+            const auction = this.MarketplaceChart.series[1].data[i];
+            const creators = this.MarketplaceChart.series[2].data[i];
+            csvContent += `${months[i]},${artwork},${auction},${creators}\n`;
+        }
+
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.setAttribute('href', url);
+        link.setAttribute('download', 'marketplace_data.csv');
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
+    /**
+     * Day Set
+     */
+    getDays(t: number) {
+        return Math.floor(t / (1000 * 60 * 60 * 24));
+    }
+
+    /**
+     * Hours Set
+     */
+    getHours(t: number) {
+        return Math.floor((t / (1000 * 60 * 60)) % 24);
+    }
+
+    /**
+     * Minutes set
+     */
+    getMinutes(t: number) {
+        return Math.floor((t / 1000 / 60) % 60);
+    }
+
+    /**
+     * Secound set
+     */
+    getSeconds(t: number) {
+        return Math.floor((t / 1000) % 60);
+    }
+
+    // Chart Colors Set
+    private getChartColorsArray(colors: any) {
+        colors = JSON.parse(colors);
+        return colors.map(function (value: any) {
+            var newValue = value.replace(" ", "");
+            if (newValue.indexOf(",") === -1) {
+                var color = getComputedStyle(document.documentElement).getPropertyValue(newValue);
+                if (color) {
+                    color = color.replace(" ", "");
+                    return color;
+                }
+                else return newValue;;
+            } else {
+                var val = value.split(',');
+                if (val.length == 2) {
+                    var rgbaColor = getComputedStyle(document.documentElement).getPropertyValue(val[0]);
+                    rgbaColor = "rgba(" + rgbaColor + "," + val[1] + ")";
+                    return rgbaColor;
+                } else {
+                    return newValue;
+                }
+            }
+        });
+    }
+
+    /**
+    * Market Place Chart
+    */
     private _marketplaceChart(colors: any) {
         colors = this.getChartColorsArray(colors);
         this.MarketplaceChart = {
@@ -682,26 +757,4 @@ export class CollegeSportsComponent implements OnInit {
             }
         };
     }
-
-    /**
-  * Sale Location Map
-  */
-    options = {
-        layers: [
-            tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoidGhlbWVzYnJhbmQiLCJhIjoiY2xmbmc3bTV4MGw1ejNzbnJqOWpubzhnciJ9.DNkdZVKLnQ6I9NOz7EED-w", {
-                id: "mapbox/light-v9",
-                tileSize: 512,
-                zoomOffset: 0,
-                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-            })
-        ],
-        zoom: 1.1,
-        center: latLng(28, 1.5)
-    };
-    layers = [
-        circle([41.9, 12.45], { color: "#435fe3", opacity: 0.5, weight: 10, fillColor: "#435fe3", fillOpacity: 1, radius: 400000, }),
-        circle([12.05, -61.75], { color: "#435fe3", opacity: 0.5, weight: 10, fillColor: "#435fe3", fillOpacity: 1, radius: 400000, }),
-        circle([1.3, 103.8], { color: "#435fe3", opacity: 0.5, weight: 10, fillColor: "#435fe3", fillOpacity: 1, radius: 400000, }),
-    ];
-
 }
