@@ -3,12 +3,13 @@ import { Routes, RouterModule } from '@angular/router';
 
 // Component Pages
 import { AnalyticsComponent } from "./analytics/analytics.component";
-import { CrmComponent } from "./crm/crm.component";
-import { CryptoComponent } from "./crypto/crypto.component";
-import { ProjectsComponent } from "./projects/projects.component";
-import { NftComponent } from "./nft/nft.component";
+
+import { WnbaComponent } from "./wnba/wnba.component";
+import { CollegeSportsComponent } from "./college-sports/college-sports.component";
 import { JobComponent } from './job/job.component';
 import { DashboardBlogComponent } from './dashboard-blog/dashboard-blog.component';
+import { NbaComponent } from './nba/nba.component';
+import { CricketComponent } from './cricket/cricket.component';
 
 const routes: Routes = [
   {
@@ -16,20 +17,20 @@ const routes: Routes = [
     component: AnalyticsComponent
   },
   {
-    path: "crm",
-    component: CrmComponent
+    path: "nba",
+    component: NbaComponent
   },
   {
-    path: "crypto",
-    component: CryptoComponent
+    path: "nwba",
+    component: WnbaComponent
   },
   {
-    path: "projects",
-    component: ProjectsComponent
+    path: "cricket",
+    component: CricketComponent
   },
   {
-    path: "nft",
-    component: NftComponent
+    path: "college-sports",
+    component: CollegeSportsComponent
   },
   {
     path: "job",

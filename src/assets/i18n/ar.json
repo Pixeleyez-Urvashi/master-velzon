@@ -13,11 +13,11 @@
       "BADGE": "جديد",
       "LIST": {
         "ANALYTICS": "تحليلات",
-        "CRM": "CRM",
-        "ECOMMERCE": "التجارة الإلكترونية",
-        "CRYPTO": "تشفير",
-        "PROJECTS": "المشاريع",
-        "NFT": "NFT",
+        "NBA": "NBA",
+        "NFL": "NFL",
+        "WNBA": "WNBA",
+        "CRICKET": "الكريكيت",
+        "COLLEGE_SPORTS": "الرياضات الجامعية",
         "JOB": "مهنة"
       }
     },

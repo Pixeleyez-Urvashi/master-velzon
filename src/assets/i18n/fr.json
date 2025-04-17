@@ -13,11 +13,11 @@
       "BADGE": "Nouvelle",
       "LIST": {
         "ANALYTICS": "Analytique",
-        "CRM": "GRC",
-        "ECOMMERCE": "Commerce électronique",
-        "CRYPTO": "Crypto",
-        "PROJECTS": "Projets",
-        "NFT": "NFT",
+        "NBA": "NBA",
+        "NFL": "NFL",
+        "WNBA": "WNBA",
+        "CRICKET": "Cricket",
+        "COLLEGE_SPORTS": "Sports universitaires",
         "JOB": "TRAVAIL"
       }
     },

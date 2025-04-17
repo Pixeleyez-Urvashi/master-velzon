@@ -5,15 +5,15 @@ import { DealTypeChart, salesForecastChart, splineAreaChart } from 'src/app/shar
 
 
 @Component({
-    selector: 'app-crm',
-    templateUrl: './crm.component.html',
-    styleUrls: ['./crm.component.scss']
+    selector: 'app-nba',
+    templateUrl: './nba.component.html',
+    styleUrls: ['./nba.component.scss']
 })
 
 /**
- * Crm Dashboard Component
+ * Nba Dashboard Component
  */
-export class CrmComponent implements OnInit {
+export class NbaComponent implements OnInit {
 
     // bread crumb items
     breadCrumbItems!: Array<{}>;
@@ -33,7 +33,7 @@ export class CrmComponent implements OnInit {
          */
         this.breadCrumbItems = [
             { label: 'Dashboards' },
-            { label: 'CRM', active: true }
+            { label: 'NBA', active: true }
         ];
 
         /**

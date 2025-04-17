@@ -5,15 +5,15 @@ import { OverviewChart, status7 } from 'src/app/shared/chartColor';
 
 
 @Component({
-  selector: 'app-projects',
-  templateUrl: './projects.component.html',
-  styleUrls: ['./projects.component.scss']
+  selector: 'app-cricket',
+  templateUrl: './cricket.component.html',
+  styleUrls: ['./cricket.component.scss']
 })
 
 /**
- * Projects Component
+ * Cricket Component
  */
-export class ProjectsComponent implements OnInit {
+export class CricketComponent implements OnInit {
 
   // bread crumb items
   breadCrumbItems!: Array<{}>;
@@ -34,7 +34,7 @@ export class ProjectsComponent implements OnInit {
      */
     this.breadCrumbItems = [
       { label: 'Dashboards' },
-      { label: 'Projects', active: true }
+      { label: 'Cricket', active: true }
     ];
 
     /**

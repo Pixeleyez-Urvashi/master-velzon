@@ -13,11 +13,11 @@
       "BADGE": "新的",
       "LIST": {
         "ANALYTICS": "分析",
-        "CRM": "客户关系管理",
-        "ECOMMERCE": "电子商务",
-        "CRYPTO": "加密货币",
-        "PROJECTS": "项目",
-        "NFT": "NFT",
+        "NBA": "NBA",
+        "NFL": "NFL",
+        "WNBA": "WNBA",
+        "CRICKET": "板球",
+        "COLLEGE_SPORTS": "大学体育",
         "JOB": "工作"
       }
     },

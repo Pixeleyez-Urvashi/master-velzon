@@ -20,32 +20,32 @@ export const MENU: MenuItem[] = [
       },
       {
         id: 4,
-        label: 'MENUITEMS.DASHBOARD.LIST.CRM',
-        link: '/crm',
+        label: 'MENUITEMS.DASHBOARD.LIST.NBA',
+        link: '/nba',
         parentId: 2
       },
       {
         id: 5,
-        label: 'MENUITEMS.DASHBOARD.LIST.ECOMMERCE',
+        label: 'MENUITEMS.DASHBOARD.LIST.NFL',
         link: '/',
         parentId: 2
       },
       {
         id: 6,
-        label: 'MENUITEMS.DASHBOARD.LIST.CRYPTO',
-        link: '/crypto',
+        label: 'MENUITEMS.DASHBOARD.LIST.WNBA',
+        link: '/wnba',
         parentId: 2
       },
       {
         id: 7,
-        label: 'MENUITEMS.DASHBOARD.LIST.PROJECTS',
-        link: '/projects',
+        label: 'MENUITEMS.DASHBOARD.LIST.CRICKET',
+        link: '/cricket',
         parentId: 2
       },
       {
         id: 7,
-        label: 'MENUITEMS.DASHBOARD.LIST.NFT',
-        link: '/nft',
+        label: 'MENUITEMS.DASHBOARD.LIST.COLLEGE_SPORTS',
+        link: '/college-sports',
         parentId: 2,
       },
       {

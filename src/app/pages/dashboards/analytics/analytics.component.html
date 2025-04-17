@@ -78,28 +78,14 @@
                                     </tr>
                                 </thead>
                                 <tbody class="border-0">
-                                    <tr>
-                                        <td>0-30</td>
-                                        <td>2,250</td>
-                                        <td>4,250</td>
-                                    </tr>
-                                    <tr>
-                                        <td>31-60</td>
-                                        <td>1,501</td>
-                                        <td>2,050</td>
-                                    </tr>
-                                    <tr>
-                                        <td>61-120</td>
-                                        <td>750</td>
-                                        <td>1,600</td>
-                                    </tr>
-                                    <tr>
-                                        <td>121-240</td>
-                                        <td>540</td>
-                                        <td>1,040</td>
+                                    <tr *ngFor="let row of durationData">
+                                        <td>{{ row.duration }}</td>
+                                        <td>{{ row.sessions | number }}</td>
+                                        <td>{{ row.views | number }}</td>
                                     </tr>
                                 </tbody>
                             </table>
+
                         </div>
                     </div>
                     <!-- end card body -->

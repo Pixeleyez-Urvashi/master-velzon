@@ -3,20 +3,20 @@ import { interval } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { circle, latLng, tileLayer } from 'leaflet';
 
-import { featuredModel, recentModel, topCollectionModel, popularModel } from './nft.model';
+import { featuredModel, recentModel, topCollectionModel, popularModel } from './college-sports.model';
 import { nftfeaturedData, nftpopularData, nftrecentData, nftstatData, nfttopCollectionData } from 'src/app/core/data';
 import { marketplaceChart, popularityChart } from 'src/app/shared/chartColor';
 
 @Component({
-    selector: 'app-nft',
-    templateUrl: './nft.component.html',
-    styleUrls: ['./nft.component.scss']
+    selector: 'app-college-sports',
+    templateUrl: './college-sports.component.html',
+    styleUrls: ['./college-sports.component.scss']
 })
 
 /**
- * Nft Component
+ * college-sports Component
  */
-export class NftComponent implements OnInit {
+export class CollegeSportsComponent implements OnInit {
 
     // bread crumb items
     breadCrumbItems!: Array<{}>;
@@ -55,7 +55,7 @@ export class NftComponent implements OnInit {
          */
         this.breadCrumbItems = [
             { label: 'Dashboards' },
-            { label: 'NFT Dashboard', active: true }
+            { label: 'College Sports', active: true }
         ];
 
         /**
@@ -70,8 +70,8 @@ export class NftComponent implements OnInit {
 
         // Date Set
         const currentDate = new Date();
-    currentDate.setDate(currentDate.getDate() + 1);
-    this._trialEndsAt = currentDate.toISOString().split('T')[0];
+        currentDate.setDate(currentDate.getDate() + 1);
+        this._trialEndsAt = currentDate.toISOString().split('T')[0];
 
         /**
          * Count date set

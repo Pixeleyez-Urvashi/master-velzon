@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NftComponent } from './nft.component';
+import { NftComponent } from './college-sports.component';
 
 describe('NftComponent', () => {
   let component: NftComponent;
@@ -8,9 +8,9 @@ describe('NftComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NftComponent ]
+      declarations: [NftComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

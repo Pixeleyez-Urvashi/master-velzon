@@ -29,19 +29,19 @@ import { WidgetModule } from '../../shared/widget/widget.module';
 
 // Component
 import { AnalyticsComponent } from './analytics/analytics.component';
-import { CrmComponent } from './crm/crm.component';
-import { CryptoComponent } from './crypto/crypto.component';
-import { ProjectsComponent } from './projects/projects.component';
-import { NftComponent } from './nft/nft.component';
+import { WnbaComponent } from './wnba/wnba.component';
+import { CollegeSportsComponent } from './college-sports/college-sports.component';
 import { JobComponent } from './job/job.component';
+import { NbaComponent } from './nba/nba.component';
+import { CricketComponent } from './cricket/cricket.component';
 
 @NgModule({
   declarations: [
     AnalyticsComponent,
-    CrmComponent,
-    CryptoComponent,
-    ProjectsComponent,
-    NftComponent,
+    NbaComponent,
+    WnbaComponent,
+    CricketComponent,
+    CollegeSportsComponent,
     JobComponent
   ],
   imports: [
@@ -65,6 +65,6 @@ import { JobComponent } from './job/job.component';
     ReactiveFormsModule,
     NgbTooltipModule
   ],
-  schemas:[CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class DashboardsModule { }

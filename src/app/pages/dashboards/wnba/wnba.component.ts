@@ -4,15 +4,15 @@ import { Portfolio, marketChart, revenueChart } from 'src/app/shared/chartColor'
 
 
 @Component({
-  selector: 'app-crypto',
-  templateUrl: './crypto.component.html',
-  styleUrls: ['./crypto.component.scss']
+  selector: 'app-wnba',
+  templateUrl: './wnba.component.html',
+  styleUrls: ['./wnba.component.scss']
 })
 
 /**
- * Crypto Component 
+ * wnba Component 
  */
-export class CryptoComponent implements OnInit {
+export class WnbaComponent implements OnInit {
 
   // bread crumb items
   breadCrumbItems!: Array<{}>;
@@ -39,7 +39,7 @@ export class CryptoComponent implements OnInit {
      */
     this.breadCrumbItems = [
       { label: 'Dashboards' },
-      { label: 'Crypto', active: true }
+      { label: 'WNBA', active: true }
     ];
 
     /**

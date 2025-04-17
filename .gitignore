@@ -10,3 +10,6 @@ logs
 
 # Build directories
 dist/
+
+# Angular cache directory
+.angular/

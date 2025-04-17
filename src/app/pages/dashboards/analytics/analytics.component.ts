@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
 import { circle, latLng, tileLayer } from 'leaflet';
-import { analyticTopPages, analyticstatData, statData } from 'src/app/core/data';
+import { analyticTopPages, analyticstatData } from 'src/app/core/data';
 import { AudiencesMetrics, basicHeatmapChart, countries_charts, simpleDonutChart } from 'src/app/shared/chartColor';
-
 
 @Component({
     selector: 'app-analytics',
@@ -15,7 +13,6 @@ import { AudiencesMetrics, basicHeatmapChart, countries_charts, simpleDonutChart
  * Analytics Dashboard Component
  */
 export class AnalyticsComponent implements OnInit {
-
     // bread crumb items
     breadCrumbItems!: Array<{}>;
     statData!: any;
@@ -25,6 +22,11 @@ export class AnalyticsComponent implements OnInit {
     simpleDonutChart: any;
     TopPages: any;
     isRTL: any = true;
+
+    // Fix for HTML template errors - keeping original property names
+    options: any;
+    layers: any;
+    option: any;
 
     constructor() {
     }
@@ -48,15 +50,49 @@ export class AnalyticsComponent implements OnInit {
         this._basicColumnChart('["--vz-success", "--vz-light"]');
         this._basicHeatmapChart('["--vz-success", "--vz-info"]');
         this._simpleDonutChart('["--vz-primary", "--vz-warning", "--vz-info"]');
+
+        // Initialize counter options
+        this.option = {
+            startVal: 0,
+            useEasing: true,
+            duration: 2,
+            decimalPlaces: 2,
+        };
+
+        // Initialize map options
+        this.initializeMap();
     }
 
-    num: number = 0;
-    option = {
-        startVal: this.num,
-        useEasing: true,
-        duration: 2,
-        decimalPlaces: 2,
-    };
+    durationData = [
+        { duration: '0-30', sessions: 2250, views: 4250 },
+        { duration: '31-60', sessions: 1501, views: 2050 },
+        { duration: '61-120', sessions: 750, views: 1600 },
+        { duration: '121-240', sessions: 540, views: 1040 }
+    ];
+
+    /**
+     * Initialize map configuration
+     */
+    private initializeMap(): void {
+        this.options = {
+            layers: [
+                tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoidGhlbWVzYnJhbmQiLCJhIjoiY2xmbmc3bTV4MGw1ejNzbnJqOWpubzhnciJ9.DNkdZVKLnQ6I9NOz7EED-w", {
+                    id: "mapbox/light-v9",
+                    tileSize: 512,
+                    zoomOffset: 0,
+                    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                })
+            ],
+            zoom: 1.1,
+            center: latLng(28, 1.5)
+        };
+
+        this.layers = [
+            circle([41.9, 12.45], { color: "#435fe3", opacity: 0.5, weight: 10, fillColor: "#435fe3", fillOpacity: 1, radius: 400000 }),
+            circle([12.05, -61.75], { color: "#435fe3", opacity: 0.5, weight: 10, fillColor: "#435fe3", fillOpacity: 1, radius: 400000 }),
+            circle([1.3, 103.8], { color: "#435fe3", opacity: 0.5, weight: 10, fillColor: "#435fe3", fillOpacity: 1, radius: 400000 }),
+        ];
+    }
 
     // Chart Colors Set
     private getChartColorsArray(colors: any) {
@@ -128,6 +164,43 @@ export class AnalyticsComponent implements OnInit {
     }
 
     /**
+    * Basic Column Chart data
+    */
+    setcolumnchartvalue(x: string) {
+        const chartData: { [key: string]: { lastYear: number[], currentYear: number[] } } = {
+            'all': {
+                lastYear: [36.2, 22.4, 38.2, 30.5, 26.4, 30.4, 20.2, 29.6, 10.9, 36.2, 22.4, 38.2],
+                currentYear: [36.2, 22.4, 38.2, 30.5, 26.4, 30.4, 20.2, 29.6, 10.9, 36.2, 22.4, 38.2]
+            },
+            '1M': {
+                lastYear: [25.3, 12.5, 20.2, 18.5, 40.4, 25.4, 15.8, 22.3, 19.2, 25.3, 12.5, 20.2],
+                currentYear: [25.3, 12.5, 20.2, 18.5, 40.4, 25.4, 15.8, 22.3, 19.2, 25.3, 12.5, 20.2]
+            },
+            '6M': {
+                lastYear: [36.2, 22.4, 38.2, 30.5, 26.4, 30.4, 20.2, 29.6, 10.9, 36.2, 22.4, 38.2],
+                currentYear: [25.3, 12.5, 20.2, 18.5, 40.4, 25.4, 15.8, 22.3, 19.2, 25.3, 12.5, 20.2]
+            },
+            '1Y': {
+                lastYear: [25.3, 12.5, 20.2, 18.5, 40.4, 25.4, 15.8, 22.3, 19.2, 25.3, 12.5, 20.2],
+                currentYear: [36.2, 22.4, 38.2, 30.5, 26.4, 30.4, 20.2, 29.6, 10.9, 36.2, 22.4, 38.2]
+            }
+        };
+
+        if (x in chartData) {
+            this.basicColumnChart.series = [
+                {
+                    name: 'Last Year',
+                    data: chartData[x].lastYear
+                },
+                {
+                    name: 'Current Year',
+                    data: chartData[x].currentYear
+                }
+            ];
+        }
+    }
+
+    /**
    * Basic Bar Chart
    */
     private _basicBarChart(colors: any) {
@@ -189,48 +262,6 @@ export class AnalyticsComponent implements OnInit {
         });
     }
 
-
-    /**
-    * Basic Column Chart data
-    */
-    setcolumnchartvalue(x: any) {
-        if (x == 'all') {
-            this.basicColumnChart.series = [{
-                name: 'Last Year',
-                data: [36.2, 22.4, 38.2, 30.5, 26.4, 30.4, 20.2, 29.6, 10.9, 36.2, 22.4, 38.2]
-            }, {
-                name: 'Current Year',
-                data: [36.2, 22.4, 38.2, 30.5, 26.4, 30.4, 20.2, 29.6, 10.9, 36.2, 22.4, 38.2]
-            }]
-        }
-        if (x == '1M') {
-            this.basicColumnChart.series = [{
-                name: 'Last Year',
-                data: [25.3, 12.5, 20.2, 18.5, 40.4, 25.4, 15.8, 22.3, 19.2, 25.3, 12.5, 20.2]
-            }, {
-                name: 'Current Year',
-                data: [25.3, 12.5, 20.2, 18.5, 40.4, 25.4, 15.8, 22.3, 19.2, 25.3, 12.5, 20.2]
-            }]
-        }
-        if (x == '6M') {
-            this.basicColumnChart.series = [{
-                name: 'Last Year',
-                data: [36.2, 22.4, 38.2, 30.5, 26.4, 30.4, 20.2, 29.6, 10.9, 36.2, 22.4, 38.2]
-            }, {
-                name: 'Current Year',
-                data: [25.3, 12.5, 20.2, 18.5, 40.4, 25.4, 15.8, 22.3, 19.2, 25.3, 12.5, 20.2]
-            }]
-        }
-        if (x == '1Y') {
-            this.basicColumnChart.series = [{
-                name: 'Last Year',
-                data: [25.3, 12.5, 20.2, 18.5, 40.4, 25.4, 15.8, 22.3, 19.2, 25.3, 12.5, 20.2]
-            }, {
-                name: 'Current Year',
-                data: [36.2, 22.4, 38.2, 30.5, 26.4, 30.4, 20.2, 29.6, 10.9, 36.2, 22.4, 38.2]
-            }]
-        }
-    }
 
     /**
    * Basic Column Charts
@@ -512,34 +543,11 @@ export class AnalyticsComponent implements OnInit {
         });
     }
 
-
     /**
-     * Sale Location Map
+     * Fetches the data
      */
-    options = {
-        layers: [
-            tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoidGhlbWVzYnJhbmQiLCJhIjoiY2xmbmc3bTV4MGw1ejNzbnJqOWpubzhnciJ9.DNkdZVKLnQ6I9NOz7EED-w", {
-                id: "mapbox/light-v9",
-                tileSize: 512,
-                zoomOffset: 0,
-                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-            })
-        ],
-        zoom: 1.1,
-        center: latLng(28, 1.5)
-    };
-    layers = [
-        circle([41.9, 12.45], { color: "#435fe3", opacity: 0.5, weight: 10, fillColor: "#435fe3", fillOpacity: 1, radius: 400000, }),
-        circle([12.05, -61.75], { color: "#435fe3", opacity: 0.5, weight: 10, fillColor: "#435fe3", fillOpacity: 1, radius: 400000, }),
-        circle([1.3, 103.8], { color: "#435fe3", opacity: 0.5, weight: 10, fillColor: "#435fe3", fillOpacity: 1, radius: 400000, }),
-    ];
-
-    /**
-    * Fetches the data
-    */
     private fetchData() {
         this.statData = analyticstatData;
         this.TopPages = analyticTopPages;
     }
-
 }
