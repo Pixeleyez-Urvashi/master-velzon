@@ -6,7 +6,6 @@ import { CommonModule } from '@angular/common';
 import { NgApexchartsModule } from "ng-apexcharts";
 
 import { BaseChartDirective } from 'ng2-charts';
-import { NgxEchartsModule } from 'ngx-echarts';
 
 // Component Pages
 import { ChartsRoutingModule } from "./charts-routing.module";
@@ -27,8 +26,6 @@ import { PieComponent } from './Apexcharts/pie/pie.component';
 import { RadialbarComponent } from './Apexcharts/radialbar/radialbar.component';
 import { RadarComponent } from './Apexcharts/radar/radar.component';
 import { PolarComponent } from './Apexcharts/polar/polar.component';
-import { ChartjsComponent } from './chartjs/chartjs.component';
-import { EchartComponent } from './echart/echart.component';
 import { RangeAreaComponent } from './Apexcharts/range-area/range-area.component';
 import { FunnelComponent } from './Apexcharts/funnel/funnel.component';
 import { SlopeareaComponent } from './Apexcharts/slope-test/slopearea.component';
@@ -52,8 +49,6 @@ import { SlopeareaComponent } from './Apexcharts/slope-test/slopearea.component'
     RadialbarComponent,
     RadarComponent,
     PolarComponent,
-    ChartjsComponent,
-    EchartComponent,
     RangeAreaComponent,
     FunnelComponent
   ],
@@ -63,9 +58,6 @@ import { SlopeareaComponent } from './Apexcharts/slope-test/slopearea.component'
     BaseChartDirective,
     ChartsRoutingModule,
     SharedModule,
-    NgxEchartsModule.forRoot({
-      echarts: () => import('echarts')
-    })
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

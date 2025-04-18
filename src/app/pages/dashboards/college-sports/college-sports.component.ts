@@ -10,7 +10,8 @@ import { marketplaceChart, popularityChart } from 'src/app/shared/chartColor';
 @Component({
     selector: 'app-college-sports',
     templateUrl: './college-sports.component.html',
-    styleUrls: ['./college-sports.component.scss']
+    styleUrls: ['./college-sports.component.scss'],
+    standalone: false
 })
 
 /**

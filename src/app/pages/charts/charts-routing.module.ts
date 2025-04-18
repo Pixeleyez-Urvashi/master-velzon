@@ -18,8 +18,6 @@ import { PieComponent } from "./Apexcharts/pie/pie.component";
 import { RadialbarComponent } from "./Apexcharts/radialbar/radialbar.component";
 import { RadarComponent } from "./Apexcharts/radar/radar.component";
 import { PolarComponent } from "./Apexcharts/polar/polar.component";
-import { ChartjsComponent } from "./chartjs/chartjs.component";
-import { EchartComponent } from "./echart/echart.component";
 import { RangeAreaComponent } from './Apexcharts/range-area/range-area.component';
 import { FunnelComponent } from './Apexcharts/funnel/funnel.component';
 import { SlopeareaComponent } from './Apexcharts/slope-test/slopearea.component';
@@ -88,14 +86,6 @@ const routes: Routes = [
   {
     path: "apex-polar",
     component: PolarComponent
-  },
-  {
-    path: "chartjs",
-    component: ChartjsComponent
-  },
-  {
-    path: "echarts",
-    component: EchartComponent
   },
   {
     path: "range-area",

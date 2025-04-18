@@ -4,9 +4,10 @@ import { Portfolio, marketChart, revenueChart } from 'src/app/shared/chartColor'
 
 
 @Component({
-  selector: 'app-wnba',
-  templateUrl: './wnba.component.html',
-  styleUrls: ['./wnba.component.scss']
+    selector: 'app-wnba',
+    templateUrl: './wnba.component.html',
+    styleUrls: ['./wnba.component.scss'],
+    standalone: false
 })
 
 /**

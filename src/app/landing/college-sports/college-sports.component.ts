@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 
 @Component({
-  selector: 'app-college-sports',
-  templateUrl: './college-sports.component.html',
-  styleUrls: ['./college-sports.component.scss']
+    selector: 'app-college-sports',
+    templateUrl: './college-sports.component.html',
+    styleUrls: ['./college-sports.component.scss'],
+    standalone: false
 })
 
 /**

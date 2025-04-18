@@ -5,7 +5,8 @@ import { DealTypeChart, salesForecastChart, splineAreaChart } from 'src/app/shar
 @Component({
     selector: 'app-nba',
     templateUrl: './nba.component.html',
-    styleUrls: ['./nba.component.scss']
+    styleUrls: ['./nba.component.scss'],
+    standalone: false
 })
 
 /**

@@ -1,4 +1,4 @@
-import { color } from "echarts";
+// import { color } from "echarts";
 
 /**
  * Stat Counder Data

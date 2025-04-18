@@ -3,9 +3,10 @@ import { ActiveProjects, MyTask, TeamMembers, projectstatData } from 'src/app/co
 import { OverviewChart, status7 } from 'src/app/shared/chartColor';
 
 @Component({
-  selector: 'app-cricket',
-  templateUrl: './cricket.component.html',
-  styleUrls: ['./cricket.component.scss']
+    selector: 'app-cricket',
+    templateUrl: './cricket.component.html',
+    styleUrls: ['./cricket.component.scss'],
+    standalone: false
 })
 
 /**

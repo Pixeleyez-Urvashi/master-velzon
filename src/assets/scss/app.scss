@@ -12,13 +12,13 @@ File: Main Css File
 @import "fonts/fonts";
 
 //Core files
-@import "./node_modules/bootstrap/scss/functions";
-@import "./node_modules/bootstrap/scss/variables";
+@import "../../../node_modules/bootstrap/scss/_functions.scss";
+@import "../../../node_modules/bootstrap/scss/_variables.scss";
 @import "variables";
 @import "variables-custom";
 @import "variables-dark";
 @import "variables-galaxy-dark";
-@import "./node_modules/bootstrap/scss/mixins";
+@import "../../../node_modules/bootstrap/scss/_mixins.scss";
 
 @import 'theme/default';
 @import 'theme/corporate';
@@ -94,7 +94,6 @@ File: Main Css File
 @import "plugins/listjs";
 @import "plugins/apexcharts";
 @import "plugins/chartjs";
-@import "plugins/echarts";
 @import "plugins/google-map";
 @import "plugins/autocomplete";
 @import "plugins/vector-maps";

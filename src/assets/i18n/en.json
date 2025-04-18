@@ -38,7 +38,8 @@
     "PAGES": {
       "TEXT": "Pages",
       "LIST": {
-        "PRICING": "Pricing"
+        "PRICING": "Pricing",
+        "BLOG": "Blog"
       }
     },
     "LANDING": {
